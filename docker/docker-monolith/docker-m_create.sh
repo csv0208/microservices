@@ -63,3 +63,7 @@ docker-machine create --driver google \
 # docker stop reddit && docker rm reddit
 # docker run --name reddit --rm -it <your-login>/otus-reddit:1.0 bash
 #   ls /
+
+#eval $(docker-machine env docker-host)
+
+

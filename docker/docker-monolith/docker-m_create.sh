@@ -20,6 +20,8 @@ docker-machine create --driver google \
 
 ## работа с docker'ом:
 
+###!!!! Если не остановить контейнер то помогает: sudo aa-remove-unknown
+
 # docker ps
 # docker-machine ls
 
@@ -38,7 +40,9 @@ docker-machine create --driver google \
 # docker login
 # docker tag reddit:latest <your-login>/o-reddit:1.0
 # docker push <your-login>/o-reddit:1.0
-# docker run --name reddit -d -p 9292:9292 <your-login>/o-reddit:1.0
+# 
+
+
 # docker logs reddit -f
 # docker exec -it reddit bash
 #   ps aux

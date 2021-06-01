@@ -5,9 +5,9 @@ stages:
   - test
   - review
   - stage
-  - prodaction
+  - production
 
-  
+
 variables:
   DATABASE_URL: 'mongodb://mongo/user_posts'
 before_script:

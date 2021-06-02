@@ -18,6 +18,7 @@ build_job:
   stage: build
   script:
     - echo 'Building'
+    - docker build -t reddit-image .
 
 test_unit_job:
   stage: test

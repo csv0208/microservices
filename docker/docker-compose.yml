@@ -2,7 +2,6 @@ version: '3.3'
 
 volumes:
   post_dbs:
-  prometheus_data:
 
 networks:
   reddit:
@@ -25,7 +24,7 @@ services:
       - ./post_dbs:/data/db
 
   post:
-    image: ${USER_NAME}/post:latest
+    image: ${USER_NAME}/post
     container_name: post
     restart: always
     networks:
@@ -37,7 +36,7 @@ services:
           - post
 
   comment:
-    image: ${USER_NAME}/comment:latest
+    image: ${USER_NAME}/comment
     container_name: comment
     restart: always
     networks:
@@ -50,11 +49,9 @@ services:
     env_file: .env
 
   ui:
-    image: ${USER_NAME}/ui:latest
+    image: ${USER_NAME}/ui
     container_name: ui
     restart: always
-    ports:
-      - ${PORT}:${PORT}/tcp
     networks:
       promit-net:
         aliases:
@@ -64,34 +61,4 @@ services:
           - ui
     ports:
       - 9292:9292
-
-  prometheus:
-    image: ${USER_NAME}/prometheus:latest
-    container_name: prometheus
-    restart: always
-    networks:
-      promit-net:
-    ports:
-      - '9090:9090'
-    volumes:
-      - prometheus_data:/prometheus
-    command:
-      - '--config.file=/etc/prometheus/prometheus.yml'
-      - '--storage.tsdb.path=/prometheus'
-      - '--storage.tsdb.retention=1d'
-
-  node-exporter:
-    image: prom/node-exporter:v0.15.2
-    user: root
-    restart: always
-    networks:
-      promit-net:
-    volumes:
-      - /proc:/host/proc:ro
-      - /sys:/host/sys:ro
-      - /:/rootfs:ro
-    command:
-      - '--path.procfs=/host/proc'
-      - '--path.sysfs=/host/sys'
-      - '--collector.filesystem.ignored-mount-points="^/(sys|proc|dev|host|etc)($$|/)"'
   
